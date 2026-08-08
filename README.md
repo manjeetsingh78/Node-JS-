@@ -1,2 +1,2 @@
 ## Node JS 
-This is my backend dummy projects.
+This repo is for my dummy backend projects made at the time of learning.

@@ -1,4 +1,3 @@
-const http = require("http");
 const fs = require("fs");
 
 // function rqListener(req,res) {
@@ -7,7 +6,7 @@ const fs = require("fs");
 
 // createServer creates a server and returns a null value
 
-const server = http.createServer((req,res)=>{
+const requestHandler = (req,res)=>{
     const url = req.url;
     const method = req.method;
 
@@ -23,7 +22,7 @@ const server = http.createServer((req,res)=>{
 
         const body=[];
 
-        req.on('data',(chunk)=>{
+        req.on('data', chunk => {
             console.log(chunk);
             body.push(chunk);
         });
@@ -31,18 +30,16 @@ const server = http.createServer((req,res)=>{
         req.on('end',()=>{
             const parsedBody = Buffer.concat(body).toString();
             const message = parsedBody.split('=')[1];
-            fs.writeFileSync('message.txt',message);
-            console.log(parsedBody);
+            fs.writeFile('message.txt', message, err =>{
+                res.statusCode = 302;
+                res.setHeader('Location','/');
+                return res.end();
+            });
         });
 
-        fs.writeFileSync('message.txt','DUMMY');
-
-        res.statusCode = 302;
-
-        res.setHeader('Location','/');
-
-        return res.end();
+        return;
     }
+    
 
     //console.log(req);
     // console.log(req.url);
@@ -51,16 +48,24 @@ const server = http.createServer((req,res)=>{
 
     // console.log(req.headers);
 
-    // res.setHeader('Content-Type','text/html');
+    res.setHeader('Content-Type','text/html');
 
-    // res.write('<html>');
-    // res.write('<head>My first page</head>');
-    // res.write('<body>Hello from Nodejs Server</body>')
-    // res.write('</html>');
-    // res.end();
+    res.write('<html>');
+    res.write('<head>My first page</head>');
+    res.write('<body>Hello from Nodejs Server</body>')
+    res.write('</html>');
+    res.end();
     // res.write(); it will send error because it is used after res.end();
     //process.exit(); // It gets it out of event loop which runs forever
-});
+};
 
-// listen is used to expose port on machine 
-server.listen(3000);
+// module.exports = {
+//  handler: requestHandler,
+//  someText: 'Some text'
+// };
+
+// module.exports.handler = requestHandler;
+// module.exports.someText = "Some Text"
+
+exports.handler = requestHandler;
+exports.someText = "some hard coded text";
