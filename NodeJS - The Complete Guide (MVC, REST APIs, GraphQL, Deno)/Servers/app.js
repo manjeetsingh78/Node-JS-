@@ -7,7 +7,7 @@ const app = express();
 // it creates a middleware
 app.use((req, res, next) => {
     console.log("in the middleware");
-    next(); // it points to next middleware
+    next(); // it allows requests to next middleware in the line
 });
 
 app.use((req, res, next) => {
