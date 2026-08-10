@@ -1,7 +1,7 @@
 {
-  "name": "servers",
+  "name": "assignment",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is a practice assignment to practice express",
   "license": "ISC",
   "author": "Manjeet Singh",
   "type": "commonjs",
@@ -10,14 +10,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js"
   },
-  "devDependencies": {
+  "dependencies": {
     "express": "^5.2.1",
     "nodemon": "^3.1.14"
-  },
-  "dependencies": {
-    "body-parser": "^2.3.0",
-    "ejs": "^6.0.1",
-    "express-handlebars": "^9.0.1",
-    "pug": "^3.0.4"
   }
 }
